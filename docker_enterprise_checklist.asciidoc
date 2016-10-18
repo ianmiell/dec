@@ -1,0 +1,407 @@
+:backend: revealjs
+//:revealjs_theme: sky
+//:revealjs_theme: night
+//:revealjs_theme: league
+:revealjs_theme: league
+//beige.css
+//black.css
+//blood.css
+//league.css
+//moon.css
+//serif.css
+//simple.css
+//solarized.css
+//white.css
+
+:revealjs_overview: true
+:revealjs_control: true
+:revealjs_previewLinks: true
+:revealjs_transition: concave
+
+//http://asciidoctor.org/docs/install-and-use-revealjs-backend/
+
+== Docker Enterprise Checklist
+
+Ian Miell, @ianmiell
+
+Author, Docker in Practice
+
+image::images/docker_in_practice.jpeg[width=350]
+
+== Overview
+
+* Background
+
+* Core challenges
+
+** Culture, Politics, Technical
+
+* Build, Ship, Run
+
+* Tips
+
+
+== Market Research
+
+* How many here are comfortable with Docker?
+
+* How many have used an orchestrator
+
+* Platform like OpenShift or Rancher
+
+* How many work for company with <1000+, 5000+ 100000+
+
+* Running Docker in production? Working on it?
+
+* Kubernetes / Swarm / Mesos(phere)
+
+* aPaaS
+
+== Background
+
+* Unregulated software house, Docker implemented as skunkworks project
+
+* 40-700 staff - workarounds for enterprisey behaviours
+
+* Moved to 120,000 strong company - workarounds fail!
+
+* Moved from Dev to Infra
+
+* Blog post: https://medium.com/zwischenzugs
+
+== Culture
+
+image::images/level_of_culture_DEC.jpeg[width=500]
+
+* All roads lead here
+
+=== Culture (I) - Your Org
+
+* History - processes built up around 'machine'
+
+* Security stance
+
+** 'When SecOps arrives at the meeting'
+
+image::images/secops.gif[width=800]
+
+
+===  Culture (II) - Why?
+
+* What do you want Docker for?
+
+** Facilitate DevOps?
+
+** Max-pack infra?
+
+** Separate build from run, infra from code?
+
+** Increase auditability?
+
+** 'Me too'?
+
+
+=== Culture (III) - Vendor
+
+* Vendor culture
+
+** 'Two Cultures' - divided by 'who has root'?
+
+*** Docker open, enterprises not
+
+*** 'docker run' anywhere!
+
+** Ecosystem sprawl
+
+
+
+== Politics
+
+image::images/politics.jpeg[width=500]
+
+* Who's in charge?
+
+=== Politics  (I)
+
+* Organisational/political challenges
+
+** 'People who are really serious about software should get serious about people'
+
+*** Who makes decisions?
+
+*** Who has the money?
+
+*** What do they want?
+
+
+=== Politics  (II)
+
+
+* Organisational decision-making
+
+** Top-down?
+
+** Consensus?
+
+* How is change funded?
+
+* Business/commercial decisions 
+
+** Strategic or piecemeal approach? Partnership?
+
+
+== Technical
+
+image::images/docker-ecosystem.jpeg[width=800,height=400]
+
+* 'How hard can it be?'
+
+== Build
+
+image::images/build.jpeg[width=500]
+
+=== The Root Problem
+
+* Are you ok with users having root?
+
+* If not, how will you manage this?
+
+* Auditing (change control, change records, approval)
+
+** No trust / some trust?
+
+** Runtime defence
+
+=== Desktop
+
+* Is this experience going to be the same as production? Do you care?
+
+* If not, how easy is it to on-board with your solution?
+
+=== CM
+
+* Do you have a strategic CM tool?
+
+* How does it play with Docker?
+
+* Do you want to mandate a CM tool as strategic?
+
+== Ship
+
+<Insert mandatory image of shipping container here>
+
+=== Image Scanning (I)
+
+* Problem: no access to outside world
+
+* Huge audit/sec/SDLC opportunity to check that images conform to standards
+
+** Is there a shellshock version of bash on there?
+
+** Is there an out of date ssl library?
+
+** Is it based on a fundamentally insecure or unacceptable base image?
+
+=== Image Scanning (II)
+
+* Process for ingestion
+
+** Is there an existing process to leverage?
+
+** VM analogue?
+
+** RPM?
+
+=== Image Scanning (III)
+
+* Classes of scanner
+
+** OpenSCAP (package-based)
+
+** Docker's (deep scanning)
+
+* What is your org's trust model?
+
+** Drives: what do you want to know?
+
+=== Image Scanning (IV) - Licensed Software
+
+* Are you afraid of licensed software?
+
+* How is your software licensed in a Docker world? Potential CPUs 'touched'?
+
+** Vendor readiness
+
+* How would you cope with an audit?
+
+=== Registry
+
+* Coherence with other artifact stores
+
+* Signing model
+
+* Promotion model
+
+* RBAC / Authentication
+
+* Disk space
+
+== Run
+
+image::images/run.jpeg[width=500]
+
+
+=== Audit and Control (I)
+
+* Audit
+
+** Who owns that container?
+
+** What is that container doing?
+
+** Which containers have shellshock?
+
+=== Audit and Control (II)
+
+* Change Management
+
+** Containers change a lot - where is change control required?
+
+* Forensics
+
+** What did that container do?
+
+** What could that container do?
+
+=== Audit and Control (III)
+
+* Monitoring
+
+** Does your monitoring solution have a concept of containers?
+
+* Secret Management
+
+
+=== Patching/SDLC
+
+* How do you you manage patches?
+
+** Cadence
+
+** Process
+
+** Timeframe
+
+* Who owns which layer?
+
+* How do you identify which images need updating?
+
+=== Images
+
+* Do you want to mandate a base image?
+
+* What do you want in your base image?
+
+** 'No "ps"!?'
+
+
+=== OS
+
+* Is your OS up to date?
+
+* Docker versions and vendor software
+
+=== Networking
+
+* SDNs - do you already have a solution?
+
+* Performance impact
+
+=== Cloud Providers
+
+* How do you plan to deliver images and run containers on your cloud provider?
+
+* Do you want to tie yourself into their Docker solutions, or make your usage cloud-agnostic?
+
+
+=== Who? Training
+
+* Are people trained to build and manage containers?
+
+== Tips
+
+image::images/tip1.png[width=500]
+
+=== Tips (I)
+
+* Build coalitions of interest
+
+** Working groups
+
+* Engage parties early
+
+* Don't focus on those already sold on the tech/devops
+
+* Start small
+
+* Consider using an aPaaS to manage these
+
+=== Tips (II)
+
+* Reverse engineer the culture
+
+** Figure out how things get done, don't fight it
+
+** Re-use existing processes where possible
+
+** Build internal map of the organisation
+
+=== Tips (III)
+
+* Teach
+
+* Don't hate the player, hate the game
+
+* Docker enterprise anti-patterns
+
+** Build prototype outside org (Rackspace, AWS) 
+
+** Doing devops in isolation/business unit-specific projects
+
+== Last Words
+
+* Don't beat yourself up
+
+* Have faith
+
+* We're hiring
+
+== Thanks!
+
+* Twit: @ianmiell
+* GitHub: ianmiell / docker-in-practice
+* Blog: zwischenzugs
+* LinkedIn: Ian Miell
+
+
+
+
+//TODO
+//RUN - LOGGING
+//Application logging is likely to be a managed or controlled area of concern:
+//Do the containers log what’s needed for operations?
+//Do they follow standards for logging?
+//Where do they log to? How will it be stored and queried
+
+//ORCHESTRATION
+//Containers can quickly proliferate across your estate, and this is where orchestration comes in. Do you want to mandate one?
+//Does your orchestrator of choice play nicely with other pieces of your Docker infrastructure?
+//Do you want to bet on one orchestrator, hedge with a mainstream one, or just sit it out until you have to make a decision?
+
+//INFRA
+//Shared Storage
+//Docker has in its core the use of volumes that are independent of the running containers, in which persistent data is stored.
+//Is shared storage easy to provision?
+//Is shared storage support ready for increased demand?
+//Is there a need for shared storage to be available across deployment locations?
+
